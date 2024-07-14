@@ -19,7 +19,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.store.screens.IntroScreen
+import com.example.store.ui.theme.BackgroundMain
 import com.example.store.ui.theme.StoreTheme
+import com.example.store.utilities.KEY_CATEGORY_ARG
+import com.example.store.utilities.KEY_PRODUCT_ARG
+import com.example.store.utilities.MyScreens
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +46,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ScreenPreview() {
     StoreTheme {
-        MyStore(modifier = Modifier)
+        StoreTheme {
+            Surface(
+                color = BackgroundMain,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                MyStore(modifier = Modifier)
+            }
+        }
     }
 }
 
@@ -49,9 +61,9 @@ fun ScreenPreview() {
 fun MyStore(modifier: Modifier) {
 
     Surface(
-        color = Color.White,
+        color = BackgroundMain,
         modifier = modifier.fillMaxSize(),
-    ) {
+    )  {
         Text(
             text = "Hello Jetpack Compose",
             modifier = Modifier.padding(horizontal = 9.dp)
@@ -59,56 +71,55 @@ fun MyStore(modifier: Modifier) {
     }
 
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "") {
+    NavHost(navController = navController, startDestination = MyScreens.IntroScreen.route) {
 
-        composable("mainScreen") {
-            MainScreen()
+        composable(
+            route = MyScreens.ProductScreen.route + "/" + KEY_PRODUCT_ARG,
+            arguments = listOf(navArgument(KEY_PRODUCT_ARG) { type = NavType.IntType })
+        ) {
+            ProductScreen(it.arguments!!.getInt(KEY_PRODUCT_ARG, -1))
         }
 
         composable(
-            route = "productScreen/{productId}",
-            arguments = listOf(navArgument("productId") { type = NavType.IntType })
+            route = MyScreens.CategoryScreen.route + "/" + KEY_CATEGORY_ARG,
+            arguments = listOf(navArgument(KEY_CATEGORY_ARG) {
+                type = NavType.StringType
+            })
         ) {
-            ProductScreen(it.arguments!!.getInt("productId", -1))
+            CategoryScreen(it.arguments!!.getString(KEY_CATEGORY_ARG, "null"))
         }
 
-        composable(route = "categoryScreen", arguments = listOf(navArgument("categoryName") {
-            type = NavType.StringType
-        })) {
-            CategoryScreen(it.arguments!!.getString("categoryName", "null"))
+        composable(MyScreens.MainScreen.route) {
+            MainScreen()
         }
 
-        composable("profileScreen") {
+        composable(MyScreens.ProfileScreen.route) {
             ProfileScreen()
         }
 
-        composable("cartScreen") {
+        composable(MyScreens.CartScreen.route) {
             CartScreen()
         }
 
-        composable("signUpScreen") {
+        composable(MyScreens.SignUpScreen.route) {
             SignUpScreen()
         }
 
-        composable("signInScreen") {
+        composable(MyScreens.SignInScreen.route) {
             SignInScreen()
         }
 
-        composable("introScreen") {
+        composable(MyScreens.IntroScreen.route) {
             IntroScreen()
         }
 
-        composable("noInternetScreen") {
+        composable(MyScreens.NoInternetScreen.route) {
             NoInternetScreen()
         }
 
     }
 }
 
-@Composable
-fun IntroScreen() {
-    TODO("Not yet implemented")
-}
 
 @Composable
 fun MainScreen() {

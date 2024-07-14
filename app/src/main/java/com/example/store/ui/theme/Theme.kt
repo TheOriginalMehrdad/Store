@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 /*
 private val DarkColorScheme = darkColorScheme(
@@ -14,8 +15,9 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = Blue,
+    secondary = Blue,
     background = BackgroundMain,
-    surface = CardViewBackground
+    //  surface = CardViewBackground
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -51,4 +53,7 @@ fun StoreTheme(
         typography = Typography,
         content = content
     )
+
+//    val systemUiController = rememberSystemUiController()
+//    systemUiController.setStatusBarColor(Blue)
 }
