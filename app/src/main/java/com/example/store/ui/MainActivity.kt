@@ -11,11 +11,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
@@ -25,17 +23,24 @@ import com.example.store.ui.theme.StoreTheme
 import com.example.store.utilities.KEY_CATEGORY_ARG
 import com.example.store.utilities.KEY_PRODUCT_ARG
 import com.example.store.utilities.MyScreens
+import com.example.store.utilities.myModules
+import dev.burnoo.cokoin.Koin
+import dev.burnoo.cokoin.navigation.KoinNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            StoreTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyStore(
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
+            Koin(appDeclaration = { modules(myModules) }
+            ) {
+                StoreTheme {
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                        MyStore(
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
                 }
             }
         }
@@ -63,7 +68,7 @@ fun MyStore(modifier: Modifier) {
     Surface(
         color = BackgroundMain,
         modifier = modifier.fillMaxSize(),
-    )  {
+    ) {
         Text(
             text = "Hello Jetpack Compose",
             modifier = Modifier.padding(horizontal = 9.dp)
@@ -71,7 +76,7 @@ fun MyStore(modifier: Modifier) {
     }
 
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = MyScreens.IntroScreen.route) {
+    KoinNavHost(navController = navController, startDestination = MyScreens.IntroScreen.route) {
 
         composable(
             route = MyScreens.ProductScreen.route + "/" + KEY_PRODUCT_ARG,
