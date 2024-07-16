@@ -27,7 +27,9 @@ import com.example.store.R
 import com.example.store.ui.theme.BackgroundMain
 import com.example.store.ui.theme.Blue
 import com.example.store.ui.theme.StoreTheme
+import com.example.store.utilities.MyScreens
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dev.burnoo.cokoin.navigation.getNavController
 
 @Preview(showBackground = true)
 @Composable
@@ -48,6 +50,8 @@ fun IntroScreen() {
 //    val systemUiController = rememberSystemUiController()
 //    systemUiController.setStatusBarColor(Blue)
 
+    val navigationController = getNavController()
+
     Image(
         modifier = Modifier.fillMaxSize(),
         painter = painterResource(R.drawable.img_intro),
@@ -65,14 +69,18 @@ fun IntroScreen() {
         ) {
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                navigationController.navigate(MyScreens.SignUpScreen.route)
+            },
             modifier = Modifier.fillMaxWidth(0.7f),
 
             ) {
             Text(text = "Sign Up")
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                navigationController.navigate(MyScreens.SignInScreen.route)
+            },
             modifier = Modifier
                 .fillMaxWidth(0.7f)
                 .padding(top = 9.dp),

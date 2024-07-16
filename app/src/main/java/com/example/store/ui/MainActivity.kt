@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.store.screens.IntroScreen
+import com.example.store.screens.signUp.SignUpScreen
 import com.example.store.ui.theme.BackgroundMain
 import com.example.store.ui.theme.StoreTheme
 import com.example.store.utilities.KEY_CATEGORY_ARG
@@ -138,11 +139,6 @@ fun NoInternetScreen() {
 
 @Composable
 fun SignInScreen() {
-    TODO("Not yet implemented")
-}
-
-@Composable
-fun SignUpScreen() {
     TODO("Not yet implemented")
 }
 

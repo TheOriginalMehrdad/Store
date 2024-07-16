@@ -3,6 +3,7 @@ package com.example.store.ui.theme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
@@ -14,7 +15,10 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
+
+
     )
+
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -32,3 +36,28 @@ val Typography = Typography(
     )
     */
 )
+
+val textHeaderStyleRegular = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontSize = 27.sp,
+    fontWeight = FontWeight.Bold,
+    fontStyle = FontStyle.Normal
+)
+
+val textHelperStyleSmall = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    fontSize = 13.sp,
+    fontWeight = FontWeight.Normal,
+    fontStyle = FontStyle.Normal
+)
+
+
+
+
+
+
+
+
+
+
+
