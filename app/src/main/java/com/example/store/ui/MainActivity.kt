@@ -16,7 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.store.screens.IntroScreen
-import com.example.store.screens.SignInScreen
+import com.example.store.screens.signIn.SignInScreen
 import com.example.store.screens.signUp.SignUpScreen
 import com.example.store.ui.theme.BackgroundMain
 import com.example.store.ui.theme.StoreTheme
