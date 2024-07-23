@@ -1,6 +1,8 @@
 package com.example.store.screens.signUp
 
 
+import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -34,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -132,10 +135,13 @@ fun MainTextField(
 @Composable
 fun MainCardView(navigation: NavController, viewModel: SignUpViewModel, signUpEvent: () -> Unit) {
 
+
     val name = viewModel.name.observeAsState("")
     val email = viewModel.email.observeAsState("")
     val password = viewModel.password.observeAsState("")
     val confirmPassword = viewModel.confirmPassword.observeAsState("")
+
+    val context = LocalContext.current
 
 
     Card(
@@ -180,7 +186,41 @@ fun MainCardView(navigation: NavController, viewModel: SignUpViewModel, signUpEv
             ) { viewModel.confirmPassword.value = it }
 
             Button(
-                onClick = { signUpEvent() },
+                onClick = {
+                    if (name.value.isNotEmpty() && email.value.isNotEmpty() && password.value.isNotEmpty() && confirmPassword.value.isNotEmpty()) {
+
+                        if (password.value == confirmPassword.value) {
+
+                            if (password.value.length >= 8) {
+
+                                if (Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
+                                    signUpEvent.invoke()
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        "The Email format is invalid",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "The password must be at least 8 characters",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+
+                        } else {
+                            Toast.makeText(context, "Passwords doesn't match!", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                    } else {
+                        Toast.makeText(context, "Please enter all data first!", Toast.LENGTH_SHORT).show()
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth(0.5f)
                     .padding(top = 27.dp),
@@ -273,3 +313,4 @@ fun PasswordTextField(
         interactionSource = interactionSource
     )
 }
+

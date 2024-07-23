@@ -1,6 +1,8 @@
 package com.example.store.screens.signIn
 
 
+import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -135,6 +138,8 @@ fun MainCardView(navigation: NavController, viewModel: SignInViewModel, signInEv
     val email = viewModel.email.observeAsState("")
     val password = viewModel.password.observeAsState("")
 
+    val context = LocalContext.current
+
     Card(
         colors = CardDefaults.cardColors(BackgroundMain),
         modifier = Modifier
@@ -168,7 +173,24 @@ fun MainCardView(navigation: NavController, viewModel: SignInViewModel, signInEv
 
 
             Button(
-                onClick = { signInEvent() },
+                onClick = {
+                    if (email.value.isNotEmpty() && password.value.isNotEmpty()) {
+
+                        if (Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
+                            signInEvent.invoke()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "The Email format is invalid",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                    } else {
+                        Toast.makeText(context, "Please enter all data first!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth(0.5f)
                     .padding(top = 27.dp),
