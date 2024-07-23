@@ -8,16 +8,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.store.screens.IntroScreen
+import com.example.store.screens.SignInScreen
 import com.example.store.screens.signUp.SignUpScreen
 import com.example.store.ui.theme.BackgroundMain
 import com.example.store.ui.theme.StoreTheme
@@ -66,17 +65,8 @@ fun ScreenPreview() {
 @Composable
 fun MyStore(modifier: Modifier) {
 
-    Surface(
-        color = BackgroundMain,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        Text(
-            text = "Hello Jetpack Compose",
-            modifier = Modifier.padding(horizontal = 9.dp)
-        )
-    }
-
     val navController = rememberNavController()
+
     KoinNavHost(navController = navController, startDestination = MyScreens.IntroScreen.route) {
 
         composable(
@@ -124,6 +114,8 @@ fun MyStore(modifier: Modifier) {
         }
 
     }
+
+
 }
 
 
@@ -134,11 +126,6 @@ fun MainScreen() {
 
 @Composable
 fun NoInternetScreen() {
-    TODO("Not yet implemented")
-}
-
-@Composable
-fun SignInScreen() {
     TODO("Not yet implemented")
 }
 

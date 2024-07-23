@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -69,16 +70,16 @@ dependencies {
 
 
     // Navigation
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.compose.v250)
 
     // LiveData-State
-    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.runtime.livedata.v151)
 
     // Coil
     implementation(libs.coil.compose)
 
     // Coroutines
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.android.v161)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // Koin
@@ -91,8 +92,7 @@ dependencies {
     implementation(libs.converter.gson)
 
     // Room
-    implementation(libs.androidx.room.ktx)
-
+    implementation(libs.androidx.room.ktx.v250alpha01)
 
     // System Ui Controller
     implementation(libs.accompanist.systemuicontroller)
@@ -101,4 +101,36 @@ dependencies {
     implementation(libs.lottie.compose)
 
 
+
+/*    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.5.0")
+
+    // LiveData-State
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.1")
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.0.0-rc02")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
+
+    // Koin
+    implementation("dev.burnoo:cokoin:0.3.2")
+    implementation("dev.burnoo:cokoin-android-viewmodel:0.3.2")
+    implementation("dev.burnoo:cokoin-android-navigation:0.3.2")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Room
+    implementation("androidx.room:room-ktx:2.5.0-alpha01")
+    //kapt ("androidx.room:room-compiler:2.4.2")
+
+    // System Ui Controller
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.17.0")
+
+    // Lottie Animations
+    implementation("com.airbnb.android:lottie-compose:5.2.0")*/
 }
