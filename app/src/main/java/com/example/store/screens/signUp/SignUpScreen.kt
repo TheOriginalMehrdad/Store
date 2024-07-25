@@ -52,6 +52,7 @@ import com.example.store.ui.theme.myShapes
 import com.example.store.ui.theme.textHeaderStyleRegular
 import com.example.store.ui.theme.textHelperStyleSmall
 import com.example.store.utilities.MyScreens
+import com.example.store.utilities.NetworkChecker
 import dev.burnoo.cokoin.navigation.getNavController
 import dev.burnoo.cokoin.navigation.getNavViewModel
 
@@ -143,6 +144,8 @@ fun MainCardView(navigation: NavController, viewModel: SignUpViewModel, signUpEv
 
     val context = LocalContext.current
 
+    fun makeToast(name: String) = Toast.makeText(context, name, Toast.LENGTH_SHORT).show()
+
 
     Card(
         colors = CardDefaults.cardColors(BackgroundMain),
@@ -194,31 +197,29 @@ fun MainCardView(navigation: NavController, viewModel: SignUpViewModel, signUpEv
                             if (password.value.length >= 8) {
 
                                 if (Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
-                                    signUpEvent.invoke()
+
+                                    if (NetworkChecker(context).isInternetConnected) {
+
+                                        signUpEvent.invoke()
+
+                                    } else {
+                                        makeToast("Please check your network connection!")
+                                    }
+
                                 } else {
-                                    Toast.makeText(
-                                        context,
-                                        "The Email format is invalid",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    makeToast("The Email format is invalid")
                                 }
 
                             } else {
-                                Toast.makeText(
-                                    context,
-                                    "The password must be at least 8 characters",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                makeToast("The password must be at least 8 characters")
                             }
 
                         } else {
-                            Toast.makeText(context, "Passwords doesn't match!", Toast.LENGTH_SHORT)
-                                .show()
+                            makeToast("Passwords doesn't match!")
                         }
 
                     } else {
-                        Toast.makeText(context, "Please enter all data first!", Toast.LENGTH_SHORT).show()
+                        makeToast("Please enter all data first!")
                     }
                 },
                 modifier = Modifier

@@ -6,11 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -121,7 +124,16 @@ fun MyStore(modifier: Modifier) {
 
 @Composable
 fun MainScreen() {
-
+    Surface (
+        color = BackgroundMain,
+        modifier = Modifier.fillMaxSize()
+    ){
+        Text(
+            text = "Hello Kotlin",
+            modifier = Modifier.wrapContentSize(),
+            fontSize = 33.sp
+        )
+    }
 }
 
 @Composable
