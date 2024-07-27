@@ -26,9 +26,10 @@ import com.example.store.ui.theme.StoreTheme
 import com.example.store.utilities.KEY_CATEGORY_ARG
 import com.example.store.utilities.KEY_PRODUCT_ARG
 import com.example.store.utilities.MyScreens
-import com.example.store.utilities.myModules
+import com.example.store.di.myModules
 import dev.burnoo.cokoin.Koin
 import dev.burnoo.cokoin.navigation.KoinNavHost
+import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
 
-            Koin(appDeclaration = { modules(myModules) }
+            Koin(appDeclaration = {
+                androidContext(this@MainActivity)
+                modules(myModules)
+            }
             ) {
                 StoreTheme {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -124,10 +128,10 @@ fun MyStore(modifier: Modifier) {
 
 @Composable
 fun MainScreen() {
-    Surface (
+    Surface(
         color = BackgroundMain,
         modifier = Modifier.fillMaxSize()
-    ){
+    ) {
         Text(
             text = "Hello Kotlin",
             modifier = Modifier.wrapContentSize(),
