@@ -27,16 +27,20 @@ import com.example.store.utilities.KEY_CATEGORY_ARG
 import com.example.store.utilities.KEY_PRODUCT_ARG
 import com.example.store.utilities.MyScreens
 import com.example.store.di.myModules
+import com.example.store.model.repository.user.TokenInMemory
+import com.example.store.model.repository.user.UserRepository
 import dev.burnoo.cokoin.Koin
 import dev.burnoo.cokoin.navigation.KoinNavHost
+import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
 
+        setContent {
             Koin(appDeclaration = {
                 androidContext(this@MainActivity)
                 modules(myModules)
@@ -44,9 +48,12 @@ class MainActivity : ComponentActivity() {
             ) {
                 StoreTheme {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        MyStore(
-                            modifier = Modifier.padding(innerPadding)
-                        )
+
+                        // To check token before initialize screen
+                        val userRepository: UserRepository = get()
+                        userRepository.loadToken()
+
+                        MyStore(modifier = Modifier.padding(innerPadding))
                     }
                 }
             }
@@ -74,7 +81,8 @@ fun MyStore(modifier: Modifier) {
 
     val navController = rememberNavController()
 
-    KoinNavHost(navController = navController, startDestination = MyScreens.IntroScreen.route) {
+
+    KoinNavHost(navController = navController, startDestination = MyScreens.MainScreen.route) {
 
         composable(
             route = MyScreens.ProductScreen.route + "/" + KEY_PRODUCT_ARG,
@@ -93,7 +101,12 @@ fun MyStore(modifier: Modifier) {
         }
 
         composable(MyScreens.MainScreen.route) {
-            MainScreen()
+
+            if (TokenInMemory.token != null) {
+                MainScreen()
+            } else {
+                IntroScreen()
+            }
         }
 
         composable(MyScreens.ProfileScreen.route) {

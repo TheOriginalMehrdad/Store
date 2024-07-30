@@ -2,7 +2,6 @@ package com.example.store.screens.signUp
 
 
 import android.util.Patterns
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -53,6 +52,9 @@ import com.example.store.ui.theme.textHeaderStyleRegular
 import com.example.store.ui.theme.textHelperStyleSmall
 import com.example.store.utilities.MyScreens
 import com.example.store.utilities.NetworkChecker
+import com.example.store.utilities.ToastHelper
+import com.example.store.utilities.ToastHelper.makeToast
+import com.example.store.utilities.VALUE_SUCCESS
 import dev.burnoo.cokoin.navigation.getNavController
 import dev.burnoo.cokoin.navigation.getNavViewModel
 
@@ -77,6 +79,9 @@ fun SignUpScreen() {
 
     val myViewModel = getNavViewModel<SignUpViewModel>()
     val navigation = getNavController()
+    val context = LocalContext.current
+    ToastHelper.init(context)
+
 
     Box {
         Box(
@@ -95,7 +100,19 @@ fun SignUpScreen() {
         ) {
             IconTopic()
             MainCardView(navigation, myViewModel) {
-                myViewModel.signUpUser()
+
+                myViewModel.signUpUser {
+
+                    if (it == VALUE_SUCCESS) {
+                        navigation.navigate(MyScreens.MainScreen.route) {
+                            popUpTo(MyScreens.IntroScreen.route) {
+                                inclusive = true
+                            }
+                        }
+                    } else {
+                        makeToast(it)
+                    }
+                }
             }
         }
     }
@@ -143,8 +160,7 @@ fun MainCardView(navigation: NavController, viewModel: SignUpViewModel, signUpEv
     val confirmPassword = viewModel.confirmPassword.observeAsState("")
 
     val context = LocalContext.current
-
-    fun makeToast(name: String) = Toast.makeText(context, name, Toast.LENGTH_SHORT).show()
+    ToastHelper.init(context)
 
 
     Card(

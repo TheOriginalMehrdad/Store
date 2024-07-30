@@ -52,6 +52,8 @@ import com.example.store.ui.theme.myShapes
 import com.example.store.ui.theme.textHeaderStyleRegular
 import com.example.store.ui.theme.textHelperStyleSmall
 import com.example.store.utilities.MyScreens
+import com.example.store.utilities.ToastHelper.makeToast
+import com.example.store.utilities.VALUE_SUCCESS
 import dev.burnoo.cokoin.navigation.getNavController
 import dev.burnoo.cokoin.navigation.getNavViewModel
 
@@ -94,7 +96,19 @@ fun SignInScreen() {
         ) {
             IconTopic()
             MainCardView(navigation, myViewModel) {
-                myViewModel.signInUser()
+
+                myViewModel.signInUser {
+
+                    if (it == VALUE_SUCCESS) {
+                        navigation.navigate(MyScreens.MainScreen.route) {
+                            popUpTo(MyScreens.IntroScreen.route) {
+                                inclusive = true
+                            }
+                        }
+                    } else {
+                        makeToast(it)
+                    }
+                }
             }
         }
     }
