@@ -10,7 +10,6 @@ class NetworkChecker(private val context: Context) {
     val isInternetConnected :Boolean
     get() {
 
-
         var result = false
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 

@@ -11,3 +11,4 @@ sealed class MyScreens(val route: String) {
     object IntroScreen : MyScreens("introScreen")
     object NoInternetScreen : MyScreens("noInternetScreen")
 }
+

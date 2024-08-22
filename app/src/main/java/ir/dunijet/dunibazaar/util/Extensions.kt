@@ -10,6 +10,7 @@ val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
     Log.v("error", throwable.message.toString())
 }
 
+
 fun stylePrice(oldPrice: String): String {
 
     if (oldPrice.length > 3) {
