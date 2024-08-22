@@ -38,6 +38,7 @@ val myModules = module {
     single<CartRepository> { CartRepositoryImpl(get(),get()) }
     single<ProductRepository> { ProductRepositoryImpl(get(), get<AppDatabase>().productDao()) }
 
+
     viewModel { SignUpViewModel(get()) }
     viewModel { CartViewModel(get(),get()) }
     viewModel { SignInViewModel(get()) }
